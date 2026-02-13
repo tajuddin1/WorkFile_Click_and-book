@@ -175,9 +175,9 @@
                       <a href="#" class="cs-btn style7 cs-icon">
                         Login <i class="fa-light fa-arrow-right-long"></i>
                       </a>
-                      <a href="#" class="cs-btn style2 cs-icon">
+                      <button type="button" class="cs-btn style2 cs-icon" data-bs-toggle="modal" data-bs-target="#signupModal">
                         Sign Up Here <i class="fa-light fa-arrow-right-long"></i>
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -1282,7 +1282,7 @@
         <h2 class="sec-title text-anime-style-3">Meet Our Expert Members</h2>
       </div>
       <div class="slider-area">
-        <div class="swiper cs-slider teamSlider1 has-shadow" id="teamSlider1"
+        <div class="swiper cs-slider teamSlider has-shadow" id="teamSlider"
           data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"1"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"3"},"1200":{"slidesPerView":"4"}}}'>
           <div class="swiper-wrapper">
             <div class="swiper-slide">
@@ -1932,7 +1932,129 @@
       </path>
     </svg>
   </div>
+  
+  
+  <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+      <div class="modal-content">
+  
+        <!-- header -->
+        <div class="modal-header border-0 pb-0">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+  
+        <div class="modal-body px-4 pb-3 pt-0 p-md-5 pt-md-0">
+          <h3 class="modal-title text-center fw-bold mb-3" id="signupModalLabel">Register</h3>
+          <!-- category selector -->
+          <div class="category-selector mb-3">
+            <label class="label-text mb-2 ">I want to join as</label>
+            <div class="row">
+              
+              <div class="col-md-6 mb-3 mb-md-0">
+                <input type="radio" name="userCategory" id="catFreelancer" value="freelancer" checked>
+                <label for="catFreelancer" class="modal-category-card d-flex align-items-center gap-2 px-3 py-2 py-md-3 flex-row flex-md-column mb-0 w-100" id="freelancerCard">
+                  <div class="card-icon"><i class="fas fa-laptop-code"></i></div>
+                  <div class="card-title">Freelancer</div>
+                </label>
+              </div>
+              
+              <div class="col-md-6">
+                <input type="radio" name="userCategory" id="catTravel" value="travel">
+                <label for="catTravel" class="modal-category-card d-flex align-items-center gap-2 px-3 py-2 py-md-3 flex-row flex-md-column mb-0 w-100" id="travelCard">
+                  <div class="card-icon"><i class="fas fa-globe"></i></div>
+                  <div class="card-title">Travel Agent or Agency</div>
+                </label>
+              </div>
+            </div>
+          </div>
+  
+          <!-- form inputs with error containers -->
+          <form id="signupForm" novalidate>
+            <!-- Full Name -->
+            <div class="mb-3">
+              <label class="form-label label-text mb-0">Full Name</label>
+              <input type="text" class="form-control" placeholder="e.g., Alex Morgan" autocomplete="name" id="fullName">
+              <div class="invalid-feedback" id="fullNameError"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <!-- Phone -->
+                <div class="mb-3">
+                  <label class="form-label mb-0">Phone</label>
+                  <input type="text" class="form-control" placeholder="+12345678" autocomplete="phone" id="phone">
+                  <div class="invalid-feedback" id="phoneError"></div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <!-- Country -->
+                <div class="mb-3">
+                  <label class="form-label label-text mb-0">Country</label>
+                  <select class="form-select" id="country">
+                    <option value="" selected disabled>Select your country</option>
+                    <option value="US">United States</option>
+                    <option value="UK">United Kingdom</option>
+                    <option value="CA">Canada</option>
+                    <option value="AU">Australia</option>
+                    <option value="DE">Germany</option>
+                    <option value="FR">France</option>
+                    <option value="ES">Spain</option>
+                    <option value="IT">Italy</option>
+                    <option value="JP">Japan</option>
+                    <option value="BR">Brazil</option>
+                    <option value="IN">India</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <div class="invalid-feedback" id="countryError"></div>
+                </div>
+              </div>
+            </div>
+            <!-- Agency Name (only for Travel Agent) -->
+            <div class="mb-3 agency-field hidden-field" id="agencyField">
+              <label class="form-label label-text mb-0">Agency Name</label>
+              <input type="text" class="form-control" placeholder="e.g., Worldwide Travels" id="agencyName">
+              <div class="invalid-feedback" id="agencyNameError"></div>
+            </div>
 
+            <div class="row">
+              <div class="col-md-6">
+                <!-- Email -->
+                <div class="mb-3">
+                  <label class="form-label label-text mb-0">Email</label>
+                  <input type="email" class="form-control" placeholder="hello@domain.com" autocomplete="email" id="email">
+                  <div class="invalid-feedback" id="emailError"></div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <!-- Password -->
+                <div class="mb-4">
+                  <label class="form-label label-text mb-0">Password</label>
+                  <div class="input-group">
+                    <input type="password" class="form-control" placeholder="Create a password" id="password"
+                      autocomplete="new-password">
+                    <span class="input-group-text bg-white toggle-password" data-target="#password">
+                      <i class="far fa-eye"></i>
+                    </span>
+                  </div>
+                  <div class="invalid-feedback" id="passwordError"></div>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Sign up button -->
+            <button type="submit" class="cs-btn style5 cs-icon py-3 w-100 mb-4">Sign Up</button>
+          </form>
+  
+          <!-- bottom text -->
+          <div class="text-center d-flex justify-content-center align-items-center">
+            <span class="label-text">Already a Member?</span>
+            <a href="#" class="login-link ms-1" id="loginLink">Login</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
   <!-- JS Plugins/Library -->
   <script src="assets/js/jquery-3.7.1.min.js"></script>
   <script src="assets/js/swiper-bundle.min.js"></script>

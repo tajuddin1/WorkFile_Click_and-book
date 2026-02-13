@@ -605,7 +605,6 @@
 
     lenis.on("scroll", ScrollTrigger.update);
 
-    // Use GSAP's ticker to sync with animations
     gsap.ticker.add((time) => {
       lenis.raf(time * 1000);
     });
@@ -634,6 +633,233 @@
       }
     }
   }
+
+  //==== Signup Form =====//
+
+  function clearAllErrors() {
+        $('.form-control, .form-select').removeClass('is-invalid');
+        $('.invalid-feedback').text('');
+      }
+      
+      // ----- Helper function to show error for a field -----
+      function showError(fieldId, message) {
+        $(fieldId).addClass('is-invalid');
+        const errorId = fieldId.replace('#', '#') + 'Error';
+        $(errorId).text(message);
+      }
+      
+      // ----- Category card selection -----
+      function updateCardSelection() {
+        if ($('#catFreelancer').is(':checked')) {
+          $('#freelancerCard').addClass('selected');
+          $('#travelCard').removeClass('selected');
+          $('#agencyField').addClass('hidden-field');
+          $('#agencyName').val('').removeClass('is-invalid');
+          $('#agencyNameError').text('');
+        } else {
+          $('#travelCard').addClass('selected');
+          $('#freelancerCard').removeClass('selected');
+          $('#agencyField').removeClass('hidden-field');
+        }
+      }
+      
+      // Initial call
+      updateCardSelection();
+      
+      // Card click handlers
+      $('#freelancerCard').on('click', function() {
+        $('#catFreelancer').prop('checked', true);
+        updateCardSelection();
+        clearAllErrors();
+      });
+      
+      $('#travelCard').on('click', function() {
+        $('#catTravel').prop('checked', true);
+        updateCardSelection();
+        clearAllErrors();
+      });
+      
+      // Radio change handler
+      $('input[name="userCategory"]').on('change', updateCardSelection);
+      
+      // ----- Password visibility toggles -----
+      $('.toggle-password').on('click', function() {
+        const targetId = $(this).data('target');
+        const inputField = $(targetId);
+        const icon = $(this).find('i');
+        
+        if (inputField.attr('type') === 'password') {
+          inputField.attr('type', 'text');
+          icon.removeClass('fa-eye').addClass('fa-eye-slash');
+        } else {
+          inputField.attr('type', 'password');
+          icon.removeClass('fa-eye-slash').addClass('fa-eye');
+        }
+      });
+      
+      // ----- Real-time validation on input change -----
+      $('#fullName').on('input', function() {
+        if ($(this).val().trim() !== '') {
+          $(this).removeClass('is-invalid');
+          $('#fullNameError').text('');
+        }
+      });
+      
+      $('#email').on('input', function() {
+        const email = $(this).val().trim();
+        if (email && email.includes('@') && email.includes('.')) {
+          $(this).removeClass('is-invalid');
+          $('#emailError').text('');
+        }
+      });
+      
+      $('#country').on('change', function() {
+        if ($(this).val()) {
+          $(this).removeClass('is-invalid');
+          $('#countryError').text('');
+        }
+      });
+
+      $('#phone').on('change', function() {
+        if ($(this).val()) {
+          $(this).removeClass('is-invalid');
+          $('#phoneError').text('');
+        }
+      });
+      
+      $('#agencyName').on('input', function() {
+        if ($(this).val().trim() !== '') {
+          $(this).removeClass('is-invalid');
+          $('#agencyNameError').text('');
+        }
+      });
+      
+      $("#password").on("input", function () {
+        const password = $(this).val();
+
+        if (password.length >= 6) {
+          $(this).removeClass("is-invalid");
+          $("#passwordError").text("");
+        } else {
+          $(this).addClass("is-invalid");
+          $("#passwordError").text("Password must be at least 6 characters");
+        }
+      });
+      
+      // ----- Form submit handler with inline errors (no alerts) -----
+      $('#signupForm').on('submit', function(e) {
+        e.preventDefault();
+        
+        // Clear all previous errors
+        clearAllErrors();
+        
+        let isValid = true;
+        const category = $('input[name="userCategory"]:checked').val();
+        
+        // Validate Full Name
+        const fullName = $('#fullName').val().trim();
+        if (!fullName) {
+          showError('#fullName', 'Full name is required');
+          isValid = false;
+        }
+        
+        // Validate Email
+        const email = $('#email').val().trim();
+        if (!email) {
+          showError('#email', 'Email is required');
+          isValid = false;
+        } else if (!email.includes('@') || !email.includes('.')) {
+          showError('#email', 'Please enter a valid email address');
+          isValid = false;
+        }
+        
+        // Validate Country
+        const country = $('#country').val();
+        if (!country) {
+          showError('#country', 'Please select your country');
+          isValid = false;
+        }
+        
+        // Validate Agency Name for Travel Agent
+        if (category === 'travel') {
+          const agencyName = $('#agencyName').val().trim();
+          if (!agencyName) {
+            showError('#agencyName', 'Agency name is required for travel agents');
+            isValid = false;
+          }
+        }
+        
+        // Validate Password
+        const password = $('#password').val();
+        if (!password) {
+          showError('#password', 'Password is required');
+          isValid = false;
+        } else if (password.length < 6) {
+          showError('#password', 'Password must be at least 6 characters');
+          isValid = false;
+        }
+        
+        // Validate Phone
+        const confirm = $('#phone').val();
+        if (!confirm) {
+          showError("#phone", "Please confirm your phone");
+          isValid = false;
+        }
+        
+        // If valid, show success message (you can replace this with form submission)
+        if (isValid) {
+          const successDiv = $('<div class="alert alert-success alert-dismissible fade show mt-3" role="alert">' +
+            '<i class="fas fa-check-circle me-2"></i>Account created successfully! (Demo)' +
+            '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
+            '</div>');
+          
+          $('.modal-body').append(successDiv);
+          
+          // Auto remove after 3 seconds
+          setTimeout(function() {
+            successDiv.alert('close');
+          }, 3000);
+          
+          // Optional: close modal after success
+          setTimeout(function() {
+            $('#signupModal').modal('hide');
+          }, 1500);
+        }
+      });
+      
+      // ----- Login link click -----
+      $('#loginLink').on('click', function(e) {
+        e.preventDefault();
+        $('#signupModal').modal('hide');
+        
+        // Show login message (you can replace with actual login modal)
+        setTimeout(function() {
+          const loginDiv = $('<div class="alert alert-info alert-dismissible fade show position-fixed top-50 start-50 translate-middle" style="z-index: 9999;" role="alert">' +
+            '<i class="fas fa-info-circle me-2"></i>Login flow would open here (demo)' +
+            '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
+            '</div>');
+          $('body').append(loginDiv);
+          
+          setTimeout(function() {
+            loginDiv.alert('close');
+          }, 2000);
+        }, 300);
+      });
+      
+      // ----- Reset form when modal is closed -----
+      $('#signupModal').on('hidden.bs.modal', function() {
+        $('#signupForm')[0].reset();
+        $('#catFreelancer').prop('checked', true);
+        updateCardSelection();
+        clearAllErrors();
+        
+        // Reset password icons
+        $('.toggle-password i').removeClass('fa-eye-slash').addClass('fa-eye');
+        $('input[type="password"]').attr('type', 'password');
+        
+        // Remove any success alerts
+        $('.alert').remove();
+      });
 
   // Initial call
   enableOrDisableLenis();
