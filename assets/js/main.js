@@ -1,6 +1,16 @@
 (function ($) {
   ("use strict");
 
+  //===== Preloader =====//
+  $(window).on("load", function () {
+    $(".preloader").fadeOut();
+  });
+
+  $(document).on("click", ".preloaderCls", function (e) {
+    e.preventDefault();
+    $(".preloader").css("display", "none");
+  });
+
   //====== Mobile Menu ======//
   $.fn.csmobilemenu = function (options) {
     var opt = $.extend(
@@ -436,7 +446,7 @@
     "show",
   );
 
-  //====== Magnific Popup ======//  
+  //====== Magnific Popup ======//
   $(".popup-image").magnificPopup({
     type: "image",
     mainClass: "mfp-zoom-in",
