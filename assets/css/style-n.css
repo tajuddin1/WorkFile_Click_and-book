@@ -1423,13 +1423,14 @@ input[type="checkbox"]~label:before {
   position: absolute;
   left: 0px;
   top: 3.5px;
-  background-color: var(--white-color);
-  border: 1px solid var(--th-border-color);
+  background-color: var(--smoke-color);
+  border: 1px solid var(--cs-border-color);
   height: 18px;
   width: 18px;
   line-height: 18px;
   text-align: center;
   font-size: 12px;
+  border-radius: 4px;
 }
 
 
@@ -2677,6 +2678,88 @@ hr.title-line {
   -ms-transform: translate(-50%, -50%) scale(1);
   transform: translate(-50%, -50%) scale(1);
 }
+
+.search-box form {
+  position: relative;
+  overflow: hidden;
+}
+
+
+.search-box form input {
+  font-size: 16px;
+  height: 50px;
+  width: 100%;
+  border: 0;
+  background-color: var(--smoke-color);
+  padding-left: 20px;
+  color: #000000;
+  border-radius: 10px;
+}
+
+.search-box form input::-moz-placeholder {
+  color: var(--body-color);
+}
+
+.search-box form input::-webkit-input-placeholder {
+  color: var(--body-color);
+}
+
+.search-box form input:-ms-input-placeholder {
+  color: var(--body-color);
+}
+
+.search-box form input::-ms-input-placeholder {
+  color: var(--body-color);
+}
+
+.search-box form input::placeholder {
+  color: var(--body-color);
+}
+
+.search-box form button {
+  position: absolute;
+  top: 2px;
+  background-color: var(--smoke-color);
+  border: none;
+  font-size: 20px;
+  right: 5px;
+  color: var(--black-color);
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  -webkit-transition: all ease 0.4s;
+  transition: all ease 0.4s;
+  -webkit-transform: scale(1.001);
+  -ms-transform: scale(1.001);
+  transform: scale(1.001);
+}
+
+.search-box form button:hover {
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.search-box.show {
+  opacity: 1;
+  visibility: visible;
+  width: 100.1%;
+  height: 100%;
+  -webkit-transition: all ease 0.4s;
+  transition: all ease 0.4s;
+  border-radius: 0;
+}
+
+.search-box.show form {
+  -webkit-transition-delay: 0.5s;
+  transition-delay: 0.5s;
+  -webkit-transform: translate(-50%, -50%) scale(1);
+  -ms-transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%) scale(1);
+}
+
+
+
 
 /* ====== Mobile Menu ====== */
 .cs-menu-wrapper {
@@ -6590,6 +6673,45 @@ hr.cs-hr {
   cursor: default;
 }
 
+.sidebar .accordion-button::after {
+  background-size: 14px;
+  background-position: center;
+}
+
+.sidebar .accordion-button:focus {
+  z-index: 3;
+  outline: 0;
+  box-shadow: unset;
+}
+
+.sidebar .accordion-button:not(.collapsed) {
+  color: var(--bs-accordion-active-color);
+  background-color: transparent;
+  box-shadow: unset;
+}
+
+.sidebar .form-check {
+  padding-left: 10px;
+}
+
+.sidebar .accordion-body {
+  padding-top: 10px;
+}
+
+.sidebar .border-bottom,
+.sidebar .accordion-item {
+  border-color: var(--smoke-color) !important;
+}
+
+.filter-label {
+  font-size: 18px;
+  font-weight: 600;
+  background-color: var(--primary-color);
+  padding: 12px 32px;
+  color: var(--white-color);
+  text-align: center;
+}
+
 /* ===== Contact ====== */
 
 .contact-form {
@@ -6895,7 +7017,8 @@ hr.cs-hr {
 }
 
 .contact-formbox form {
-  border: 1px solid var(--cs-border-color);
+  box-shadow: 0px 0px 10px 3px var(--smoke-color);
+  border: 1px solid var(--smoke-color);
 }
 
 .contact-formbox .form-select {
